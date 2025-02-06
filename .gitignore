@@ -1,0 +1,73 @@
+# Byte-compiled / cached
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Django specific
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+static/
+node_modules/
+
+# Django migrations
+**/migrations/**  # Ignore migration files but not the directory
+!**/migrations/__init__.py
+
+# Python packaging
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Docker
+docker-compose.override.yml
+*.pid
+
+# AWS / GCP / Azure credentials
+*.pem
+*.key
+*.crt
+*.cfg
+*.env
+.env.*
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# MySQL/PostgreSQL
+*.sql
+*.dump
+
+# Ignore general system files
+.DS_Store
+Thumbs.db

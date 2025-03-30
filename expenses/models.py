@@ -15,7 +15,7 @@ class Category(BaseModel):
     This will store the instructions for the AI tool to associate a certain expense description with the
     category name.
     """
-    description_for_parser = models.TextField()
+    description_for_parser = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -28,7 +28,7 @@ class Statement(BaseModel):
     
     title = models.CharField(max_length=255)
     statement_type = models.CharField(
-        choices=[('DEBIT', 'Debit'), ('CREDIT', 'credit')], max_length=10
+        choices=[('DEBIT', 'Debit'), ('CREDIT', 'Credit')], max_length=10
     )
     file_name = models.CharField(max_length=255, null=True, blank=True)
 
@@ -42,11 +42,19 @@ class Statement(BaseModel):
     billing_cycle_date = models.DateField()
     description = models.CharField(max_length=255, null=True, blank=True)
 
-    def store(self, statement_file):
+    @classmethod
+    def create(
+        cls, title, statement_type, file_name, parsed_json, billing_cycle_date, description, statement_file=None
+    ):
+        statement = cls(title=title, statement_type=statement_type, file_name=file_name, parsed_json=parsed_json,
+                        billing_cycle_date=billing_cycle_date, description=description)
+        statement.save()
         # This method will store the statement file in the database or S3 depending the implementation.
-        # StatementRepository.store(statement_file)
-        self.save()
-        return self
+        # StatementFileRepository.store(statement, statement_file)
+        return statement
+    
+    def __str__(self):
+        return f"{self.title} - {self.billing_cycle_date}"
 
 
 """
@@ -55,10 +63,12 @@ Expense model will be used to store the expenses or incomes.
 class Expense(BaseModel):
 
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateField()
     description = models.CharField(max_length=255)
-    currency = models.CharField(max_length=3)
+    description_raw = models.CharField(max_length=255)
+    currency = models.CharField(choices=[('USD', 'USD'), ('ARS', 'ARS')], max_length=3)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    statement = models.ForeignKey(Statement, on_delete=models.CASCADE)
+    statement = models.ForeignKey(Statement, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

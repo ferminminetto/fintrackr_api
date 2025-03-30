@@ -60,7 +60,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('POSTGRES_DB', 'agile_currency_exchange'),
         'USER': os.environ.get('POSTGRES_USER', 'agile_currency_exchange'),
-        'PASSWORD': os.environ.get('POSTGRES_ROOT_PASSWORD', 'verysecret'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'verysecret'),
         'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
         'PORT': os.environ.get('POSTGRES_PORT', '5432')
     }

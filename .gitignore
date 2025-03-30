@@ -60,6 +60,7 @@ docker-compose.override.yml
 *.cfg
 *.env
 .env.*
+env
 
 # Jupyter Notebooks
 .ipynb_checkpoints/
